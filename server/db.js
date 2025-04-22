@@ -1,5 +1,7 @@
-const pg = require('pg');
-const bcrypt = require('bcrypt');
+import pg from 'pg';
+import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';  // Import uuid package
+
 const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/the_acme_store');
 
 // createTables
@@ -84,7 +86,7 @@ const destroyFavorite = async (id) => {
   await client.query('DELETE FROM favorites WHERE id = $1', [id]);
 };
 
-module.exports = {
+export {
   client,
   createTables,
   createProduct,
@@ -93,5 +95,5 @@ module.exports = {
   fetchProducts,
   createFavorite,
   fetchFavorites,
-  destroyFavorite,
+  destroyFavorite
 };

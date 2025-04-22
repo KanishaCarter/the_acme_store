@@ -1,6 +1,5 @@
-const express = require('express');
-const app = express();
-const {
+import express from 'express';
+import {
   client,
   createTables,
   createProduct,
@@ -10,8 +9,9 @@ const {
   createFavorite,
   fetchFavorites,
   destroyFavorite,
-} = require('./db');
+} from './db.js';  // Import functions from db.js
 
+const app = express();
 app.use(express.json());
 
 // GET /api/users
@@ -72,18 +72,6 @@ const init = async () => {
     await createTables();
     console.log('tables created');
 
-    // Generates dummy data
-    const [user1, user2] = await Promise.all([
-      createUser({ username: 'moe', password: 'moe_pw' }),
-      createUser({ username: 'lucy', password: 'lucy_pw' }),
-    ]);
-
-    const [product1, product2, product3] = await Promise.all([
-      createProduct('product1'),
-      createProduct('product2'),
-      createProduct('product3'),
-    ]);
-
     app.listen(3000, () => console.log('listening on port 3000'));
   } catch (err) {
     console.error(err);
@@ -91,5 +79,3 @@ const init = async () => {
 };
 
 init();
-
-
